@@ -11,6 +11,12 @@ let bonusLife = true;
 
 adjustHealthBars(chooseMaxLife);
 
+function reset() {
+    monsterLife = chooseMaxLife;
+    playerLife = chooseMaxLife;
+    resetGame(chooseMaxLife);
+}
+
 function endResult() {
     initialPlayerHealth = playerLife;
     let playerDamage = dealPlayerDamage(MONSTER_POWER);
@@ -26,10 +32,13 @@ function endResult() {
 
     if (monsterLife <= 0 && playerLife > 0) {
         alert('You win!');
+        reset();
     } else if (playerLife <= 0 && monsterLife > 0) {
         alert('You lose!');
+        reset();
     } else if (playerLife <= 0 && monsterLife <= 0) {
         alert('Draw');
+        reset();
     }
 }
 
