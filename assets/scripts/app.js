@@ -108,16 +108,19 @@ function endResult() {
 }
 
 function attackMonster(mode) {
-    let eventAttack;
-    if (mode === 'ATTACK') {
-        mode = ATTACK_POWER;
-        eventAttack = LOG_PLAYER_ATTACK;
-    } else if (mode === 'STRONG_ATTACK') {
-        mode = STRONG_ATTACK_POWER;
-        eventAttack = LOG_PLAYER_STRONG_ATTACK;
-    }
+    const maxDamage = mode === PLAYER_ATTACK ? ATTACK_POWER : STRONG_ATTACK_POWER;
+    const eventAttack =
+        mode === PLAYER_ATTACK ? LOG_PLAYER_ATTACK : LOG_PLAYER_STRONG_ATTACK;
 
-    let damage = dealMonsterDamage(mode);
+    // if (mode === PLAYER_ATTACK) {
+    //     mode = ATTACK_POWER;
+    //     eventAttack = LOG_PLAYER_ATTACK;
+    // } else if (mode === PLAYER_STRONG_ATTACK) {
+    //     mode = STRONG_ATTACK_POWER;
+    //     eventAttack = LOG_PLAYER_STRONG_ATTACK;
+    // }
+
+    let damage = dealMonsterDamage(maxDamage);
     monsterLife -= damage;
     writeToLog(eventAttack, damage, playerLife, monsterLife);
     endResult();
